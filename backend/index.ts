@@ -2,18 +2,9 @@ import express, { Request, Response } from 'express';
 import axios from 'axios';
 import PDFDocument from 'pdfkit';
 import bodyParser from 'body-parser';
-import {createWriteStream, unlink } from 'fs';
+
 const app = express();
 const PORT = 3000;
-
-interface PokemonData {
-    name: string;
-    height: number;
-    weight: number;
-    base_experience:number;
-    sprites:[];
-}
-
 app.use(bodyParser.json());
 
 app.get('/pokemon-list', async (req: Request, response: Response) => {
@@ -54,15 +45,14 @@ app.get('/pokemon-list', async (req: Request, response: Response) => {
     }
 });
 
+
 app.post('/pokemon-pdf', async (request: Request, response: Response) => {
     const { name } = request.body;
 
     try {
         const responsePokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
         const pokemonInfo = responsePokemon.data;
-
         const pokePFD = new PDFDocument();
-
         pokePFD.fontSize(18).text('Información del Pokémon', { align: 'center' });
         pokePFD.fontSize(14).text(`Nombre: ${pokemonInfo.name}`);
         pokePFD.fontSize(14).text(`ID: ${pokemonInfo.id}`);
@@ -76,7 +66,6 @@ app.post('/pokemon-pdf', async (request: Request, response: Response) => {
         response.setHeader('Content-Type', 'application/pdf');
         pokePFD.pipe(response);
         pokePFD.end();
-
     } catch (error) {
         console.error(error);
         response.status(404).send('Pokémon no encontrado');
