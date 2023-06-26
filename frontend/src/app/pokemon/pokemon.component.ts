@@ -35,6 +35,7 @@ export class PokemonComponent implements OnInit{
   findPokemons() {
     let baseUrl='';
     if (typeof this.pokemonName  !== 'undefined') {
+      this.page=1;
       baseUrl= `http://localhost:3000/pokemon-list?search=${this.pokemonName}&limit=${this.limit}&page=${this.page}`;
     } else {
       baseUrl= `http://localhost:3000/pokemon-list?limit=${this.limit}&page=${this.page}`;
