@@ -6,7 +6,7 @@ A continuación se describe brevemente la instalación de esta aplicación desar
 
 # Intalaciones Previas
 
-> **Requerimientos**. Para la ejecución correcta del proyecto es necesario Instalr Node.js [https://nodejs.org] y al finalizar la instalación de node, deberá ejecutar los siguientes comandos para instalar **Anguler CLI** y **Node Express**:
+> **Requerimientos**. Para la ejecución correcta del proyecto es necesario Instalar Node.js [https://nodejs.org] y al finalizar la instalación de node, deberá ejecutar los siguientes comandos para instalar **Anguler CLI** y **Node Express**:
 
     $ npm install -g express
     $ npm install -g @angular/cli
