@@ -3,6 +3,16 @@ Proyecto para el consumo de la API Pokeapi con el uso de **node Express**  en el
 
 A continuación se describe brevemente la instalación de esta aplicación desarrollada con fines didácticos. 
 
+
+# Intalaciones Previas
+
+> **Requerimientos**. Para la ejecución correcta del proyecto es necesario Instalr Node.js [https://nodejs.org] y al finalizar la instalación de node, deberá ejecutar los siguientes comandos para instalar **Anguler CLI** y **Node Express**:
+
+    $ npm install -g express
+    $ npm install -g @angular/cli
+
+
+
 # Frontend
 
 > **Instalación Frontend**. Para la instalación del frontend es necesario entrar a la raíz del directorio del proyecto y ejecutar los comandos:
