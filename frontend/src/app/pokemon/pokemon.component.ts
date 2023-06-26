@@ -7,13 +7,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./pokemon.component.scss']
 })
 export class PokemonComponent implements OnInit{
+  baseUrl: string = `http://localhost:3000/`;
   pokemonName: any;
   allPokemons: any[] = [];
   limit: number = 20;
   page: number = 1;
   error = '';
+
   constructor(
-    private http: HttpClient,
+    private http: HttpClient
   ){ }
 
   ngOnInit() {
@@ -21,10 +23,9 @@ export class PokemonComponent implements OnInit{
   }
 
   getAllPokemons() {
-    this.http.get<any[]>('http://localhost:3000/pokemon-list/').subscribe(
+    this.http.get<any[]>(`${this.baseUrl}pokemon-list/`).subscribe(
       (response:any) => {
         this.allPokemons = response;
-        console.log(this.allPokemons);
       },
       error => {
         console.log(error);
@@ -34,20 +35,23 @@ export class PokemonComponent implements OnInit{
 
   findPokemons() {
     let baseUrl='';
+    if (typeof this.pokemonName !== 'undefined' ) {
+      this.page= (this.pokemonName.length > 0) ? 1 : this.page;
+    }
+
     if (typeof this.pokemonName  !== 'undefined') {
-      this.page=1;
-      baseUrl= `http://localhost:3000/pokemon-list?search=${this.pokemonName}&limit=${this.limit}&page=${this.page}`;
+      baseUrl= `${this.baseUrl}pokemon-list?search=${this.pokemonName}&limit=${this.limit}&page=${this.page}`;
     } else {
-      baseUrl= `http://localhost:3000/pokemon-list?limit=${this.limit}&page=${this.page}`;
+      baseUrl= `${this.baseUrl}pokemon-list?limit=${this.limit}&page=${this.page}`;
     }
 
     this.http.get<Pokemon[]>(baseUrl).subscribe( response => {
       this.allPokemons = response;
-      },
-      error => {
+
+    },
+    error => {
         console.log(error);;
-      }
-    );
+    });
   }
 
   getDetailPokemon(name:string) {
@@ -57,7 +61,7 @@ export class PokemonComponent implements OnInit{
 
   getPDFPokemon() {
     this.error = '';
-    this.http.post('http://localhost:3000/pokemon-pdf', { name: this.pokemonName }, {
+    this.http.post(`${this.baseUrl}pokemon-pdf`, { name: this.pokemonName }, {
       responseType: 'blob',
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
