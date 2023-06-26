@@ -1,0 +1,44 @@
+<div class="container">
+  <h2>Búsqueda Pokémons</h2>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label for="limitNumber">Limite</label>
+        <input id="limitNumber" [(ngModel)]="limit" type="number" class="form-control" (change)="findPokemons()" >
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label for="pageNumber">Página</label>
+        <input id="pageNumber" [(ngModel)]="page" type="number" class="form-control" (change)="findPokemons()" >
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-12">
+      <div class="input-group mb-3">
+        <input [(ngModel)]="pokemonName" type="text" class="form-control" placeholder="Buscar por Nombre del Pokémon" (keydown.enter)="findPokemons()">
+        <button class="btn btn-primary" type="button" (click)="findPokemons()">Buscar </button>
+      </div>
+    </div>
+  </div>
+
+  <h3>Listado Pokémons Ordenados Alfebéticamente</h3>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let pokemon of allPokemons">
+      <div class="card mb-4">
+        <div class="card-body">
+
+          <div class="card-body  text-center">
+            <h3 class="card-title">{{ pokemon.name.toUpperCase() }}</h3>
+            <div class="col text-center">
+              <button class="btn btn-primary" (click)="getDetailPokemon(pokemon.name)">Detalle </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
