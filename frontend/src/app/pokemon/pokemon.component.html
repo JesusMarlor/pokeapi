@@ -4,13 +4,13 @@
     <div class="col-6">
       <div class="form-group">
         <label for="limitNumber">Limite</label>
-        <input id="limitNumber" [(ngModel)]="limit" type="number" class="form-control" (change)="findPokemons()" >
+        <input id="limitNumber" [(ngModel)]="limit" type="number" class="form-control" (keyup)="findPokemons()" (change)="findPokemons()" >
       </div>
     </div>
     <div class="col-6">
       <div class="form-group">
         <label for="pageNumber">Página</label>
-        <input id="pageNumber" [(ngModel)]="page" type="number" class="form-control" (change)="findPokemons()" >
+        <input id="pageNumber" [(ngModel)]="page" type="number" class="form-control" (keyup)="findPokemons()" (change)="findPokemons()" >
       </div>
     </div>
   </div>
