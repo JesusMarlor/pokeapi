@@ -2,8 +2,10 @@ import express, { Request, Response } from 'express';
 import axios from 'axios';
 import PDFDocument from 'pdfkit';
 import bodyParser from 'body-parser';
+const cors = require('cors')
 
 const app = express();
+app.use(cors())
 const PORT = 3000;
 app.use(bodyParser.json());
 

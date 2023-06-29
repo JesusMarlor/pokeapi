@@ -23,14 +23,15 @@ export class PokemonComponent implements OnInit{
   }
 
   getAllPokemons() {
-    this.http.get<any[]>(`${this.baseUrl}pokemon-list/`).subscribe(
-      (response:any) => {
+    this.http.get<any[]>(`${this.baseUrl}pokemon-list/`).subscribe({
+      next:  (response:any) => {
         this.allPokemons = response;
       },
-      error => {
-        console.log(error);
-      }
-    );
+      error: (error) => {
+        this.error = error.error.error || 'Ocurrió un Error';
+      },
+      complete: () => console.info('complete') 
+  });
   }
 
   findPokemons() {
@@ -45,13 +46,15 @@ export class PokemonComponent implements OnInit{
       baseUrl= `${this.baseUrl}pokemon-list?limit=${this.limit}&page=${this.page}`;
     }
 
-    this.http.get<Pokemon[]>(baseUrl).subscribe( response => {
-      this.allPokemons = response;
-
-    },
-    error => {
-        console.log(error);;
-    });
+    this.http.get<Pokemon[]>(baseUrl).subscribe({
+      next: (response: any) => {
+        this.allPokemons = response;
+      },
+      error: (error) => {
+        this.error = error.error.error || 'Ocurrió un Error';
+      },
+      complete: () => console.info('complete') 
+  });
   }
 
   getDetailPokemon(name:string) {
@@ -66,17 +69,17 @@ export class PokemonComponent implements OnInit{
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
-    })
-      .subscribe(
-        (response: any) => {
-          const file = new Blob([response], { type: 'application/pdf' });
-          const fileURL = URL.createObjectURL(file);
-          window.open(fileURL);
-        },
-        (error) => {
-          this.error = error.error.error || 'Ocurrió un Error';
-        }
-      );
+    }).subscribe({
+      next: (response: any) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      },
+      error: (error) => {
+        this.error = error.error.error || 'Ocurrió un Error';
+      },
+      complete: () => console.info('complete') 
+  });
   }
 }
 
